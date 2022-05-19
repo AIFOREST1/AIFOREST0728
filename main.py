@@ -441,15 +441,15 @@ class HelpOption(discord.ui.View):
     async def Cu(self, button: discord.ui.Button, interaction: discord.Interaction):
         await self.msg.edit("https://cdn.discordapp.com/attachments/935529009251487810/946775136462311554/i15518900640.jpg", view=self)
 
-    @discord.ui.button(label="아브 노말 1~2", style=discord.ButtonStyle.gray, custom_id="Cu")
+    @discord.ui.button(label="아브 노말 1~2", style=discord.ButtonStyle.gray, custom_id="abn1")
     async def Cu(self, button: discord.ui.Button, interaction: discord.Interaction):
         await self.msg.edit("https://i.imgur.com/zmXNSz9.jpg", view=self)
 
-    @discord.ui.button(label="아브 노말 3~4", style=discord.ButtonStyle.gray, custom_id="Cu")
+    @discord.ui.button(label="아브 노말 3~4", style=discord.ButtonStyle.gray, custom_id="abn2")
     async def Cu(self, button: discord.ui.Button, interaction: discord.Interaction):
         await self.msg.edit("https://i.imgur.com/Vdd3xPj.jpg", view=self)
 
-    @discord.ui.button(label="아브 노말 5~6", style=discord.ButtonStyle.gray, custom_id="Cu")
+    @discord.ui.button(label="아브 노말 5~6", style=discord.ButtonStyle.gray, custom_id="abn3")
     async def Cu(self, button: discord.ui.Button, interaction: discord.Interaction):
         await self.msg.edit("https://i.imgur.com/wytBNJg.jpg", view=self)
 
