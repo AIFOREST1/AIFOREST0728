@@ -9,9 +9,6 @@ import nest_asyncio
 import calmodule
 nest_asyncio.apply()
 
-$cat runtime.txt
-python-3.10.7
-
 client = commands.Bot()
 token = ('OTc2NzMwNDQxNjkwMjUxMzM0.GNO3xo.CPO3lbbJedCjAlZbwGmiOux2A6m-m-Vy1Ztk6o')
 
