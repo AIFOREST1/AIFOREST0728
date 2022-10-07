@@ -10,7 +10,7 @@ import calmodule
 nest_asyncio.apply()
 
 client = commands.Bot()
-token = ('OTc2NzMwNDQxNjkwMjUxMzM0.GNO3xo.CPO3lbbJedCjAlZbwGmiOux2A6m-m-Vy1Ztk6o')
+token = ('OTc2NzMwNDQxNjkwMjUxMzM0.GZvgk_.erUmdeWxzc6LqW_zFh6wZWwynGfwXubQ5KS2Pg')
 
 @client.event
 async def on_ready():
