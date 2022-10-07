@@ -7,11 +7,13 @@ from discord.commands import Option, SlashCommandGroup
 import aiohttp
 import nest_asyncio
 import calmodule
-import env
+from dotenvy import load_env
 nest_asyncio.apply()
 
+load_env()
+
 client = commands.Bot()
-token = os.environ.get('DISCORD_TOKEN')
+token = os.getenv("TOKEN")
 
 @client.event
 async def on_ready():
