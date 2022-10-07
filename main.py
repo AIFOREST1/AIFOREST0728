@@ -46,7 +46,7 @@ async def 정보(ctx: discord.ApplicationContext, 닉네임: Option(str, "닉네
             message = await ctx.interaction.original_message()
 
             loop = asyncio.get_event_loop()
-            response = loop.run_until_complete(get_req2('http://152.70.248.4:5000/userinfo/'+str(닉네임)))
+            response = loop.run_until_complete(get_req2('https://lostarkapi.ga/userinfo/'+str(닉네임)))
 
             if not response["Result"] == "Failed":
                 if not response["Result"] == "1레벨":
@@ -90,7 +90,7 @@ async def 정보_표시(ctx: discord.ApplicationContext, 닉네임: Option(str, 
             message = await ctx.interaction.original_message()
 
             loop = asyncio.get_event_loop()
-            response = loop.run_until_complete(get_req2('http://152.70.248.4:5000/userinfo/'+str(닉네임)))
+            response = loop.run_until_complete(get_req2('https://lostarkapi.ga/userinfo/'+str(닉네임)))
 
             if not response["Result"] == "Failed":
                 if not response["Result"] == "1레벨":
@@ -135,7 +135,7 @@ async def 모험섬(ctx: discord.ApplicationContext):
             message = await ctx.interaction.original_message()
             
             loop = asyncio.get_event_loop()
-            response = loop.run_until_complete(get_req('http://152.70.248.4:5000/adventureisland/'))
+            response = loop.run_until_complete(get_req('https://lostarkapi.ga/adventureisland'))
 
             embedresult_island = calmodule.embedresult_island(response)
             
@@ -152,7 +152,7 @@ async def 사사게(ctx: discord.ApplicationContext, 닉네임: Option(str, "닉
     else:
         try:
             loop = asyncio.get_event_loop()
-            response = loop.run_until_complete(get_req('http://152.70.248.4:5000/sasa/'+str(닉네임)))
+            response = loop.run_until_complete(get_req('https://lostarkapi.ga/sasa/'+str(닉네임)))
             
             embedresult_sasalist = calmodule.embedresult_sasalist(response, 닉네임)
             
@@ -183,7 +183,7 @@ async def 시세(ctx: discord.ApplicationContext):
     else:
         try:          
             loop = asyncio.get_event_loop()
-            response = loop.run_until_complete(get_req('http://152.70.248.4:5000/crystal/'))
+            response = loop.run_until_complete(get_req('https://lostarkapi.ga/crystal'))
 
             embedresult_crystal = calmodule.embedresult_crystal(response)
             
@@ -204,7 +204,7 @@ async def 거래소(ctx: discord.ApplicationContext, 아이템: Option(str, "검
 
                 message = await ctx.interaction.original_message()
 
-                url = "http://152.70.248.4:5000/tradeplus/"+str(아이템)
+                url = "https://lostarkapi.ga/tradeplus/"+str(아이템)
 
                 loop = asyncio.get_event_loop()
                 response = loop.run_until_complete(get_req2(url))
@@ -282,7 +282,7 @@ async def 거래소(ctx: discord.ApplicationContext, 아이템: Option(str, "검
                         if percount == "None":
                             percount = "1"                        
 
-                        url2 = "http://152.70.248.4:5000/trade/"+str(number)
+                        url2 = "https://lostarkapi.ga/trade/"+str(number)
                         response2 = loop.run_until_complete(get_req2(url2))
 
                         count = ""
@@ -452,5 +452,26 @@ class HelpOption(discord.ui.View):
     @discord.ui.button(label="아브 노말 5~6", style=discord.ButtonStyle.gray, custom_id="abn3")
     async def abn3(self, button: discord.ui.Button, interaction: discord.Interaction):
         await self.msg.edit("https://i.imgur.com/wytBNJg.jpg", view=self)
+
+    @discord.ui.button(label="카양겔 넬라시아", style=discord.ButtonStyle.gray, custom_id="abn3")
+    async def abn3(self, button: discord.ui.Button, interaction: discord.Interaction):
+        await self.msg.edit("https://imgur.com/z2VfitW", view=self)
+
+    @discord.ui.button(label="카양겔 천공의 요람", style=discord.ButtonStyle.gray, custom_id="abn3")
+    async def abn3(self, button: discord.ui.Button, interaction: discord.Interaction):
+        await self.msg.edit("https://imgur.com/eCHVNJs", view=self)
+
+    @discord.ui.button(label="일리아칸 노말", style=discord.ButtonStyle.gray, custom_id="abn3")
+    async def abn3(self, button: discord.ui.Button, interaction: discord.Interaction):
+        await self.msg.edit("https://imgur.com/fbtY8l6", view=self)
+
+    @discord.ui.button(label="일리아칸 하드 1~2", style=discord.ButtonStyle.gray, custom_id="abn3")
+    async def abn3(self, button: discord.ui.Button, interaction: discord.Interaction):
+        await self.msg.edit("https://imgur.com/VTcy5zF", view=self)
+
+    @discord.ui.button(label="일리아칸 하드 3", style=discord.ButtonStyle.gray, custom_id="abn3")
+    async def abn3(self, button: discord.ui.Button, interaction: discord.Interaction):
+        await self.msg.edit("https://imgur.com/cPYAAZq", view=self)
+
 
 client.run(token)
