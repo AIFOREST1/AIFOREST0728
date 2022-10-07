@@ -7,10 +7,11 @@ from discord.commands import Option, SlashCommandGroup
 import aiohttp
 import nest_asyncio
 import calmodule
+import env
 nest_asyncio.apply()
 
 client = commands.Bot()
-token = open("token", "r").readline()
+token = os.environ.get('DISCORD_TOKEN')
 
 @client.event
 async def on_ready():
@@ -54,14 +55,14 @@ async def 정보(ctx: discord.ApplicationContext, 닉네임: Option(str, "닉네
                     embedresult = calmodule.embedresult(response)
 
                     embedresult_lister = calmodule.embedresult_lister(response)
-                    
+
                     embedskill = calmodule.embedskill(response)
-                    
+
                     embedresult_jewlist = calmodule.embedresult_jewlist(response)
 
                     embedresult_goldget = calmodule.embedresult_goldget(response)
-                    
-                    embedresult_sasalist = calmodule.embedresult_sasalist(response["Sasa"], 닉네임)                    
+
+                    embedresult_sasalist = calmodule.embedresult_sasalist(response["Sasa"], 닉네임)
 
                     embedresult_gearlist = calmodule.embedresult_gearlist(response)
 
@@ -98,14 +99,14 @@ async def 정보_표시(ctx: discord.ApplicationContext, 닉네임: Option(str, 
                     embedresult = calmodule.embedresult(response)
 
                     embedresult_lister = calmodule.embedresult_lister(response)
-                    
+
                     embedskill = calmodule.embedskill(response)
-                    
+
                     embedresult_jewlist = calmodule.embedresult_jewlist(response)
 
                     embedresult_goldget = calmodule.embedresult_goldget(response)
-                    
-                    embedresult_sasalist = calmodule.embedresult_sasalist(response["Sasa"], 닉네임)                    
+
+                    embedresult_sasalist = calmodule.embedresult_sasalist(response["Sasa"], 닉네임)
 
                     embedresult_gearlist = calmodule.embedresult_gearlist(response)
 
@@ -131,14 +132,14 @@ async def 모험섬(ctx: discord.ApplicationContext):
     else:
         try:
             await ctx.defer(ephemeral=False)
-            
+
             message = await ctx.interaction.original_message()
-            
+
             loop = asyncio.get_event_loop()
             response = loop.run_until_complete(get_req('https://lostarkapi.ga/adventureisland'))
 
             embedresult_island = calmodule.embedresult_island(response)
-            
+
             await message.edit("", embed=embedresult_island)
         except Exception as error:
             embederr = discord.Embed(title="알 수 없는 오류가 발생했습니다./몇 시간 이후 다시 시도해주세요.", color=discord.Color.red())
@@ -153,9 +154,9 @@ async def 사사게(ctx: discord.ApplicationContext, 닉네임: Option(str, "닉
         try:
             loop = asyncio.get_event_loop()
             response = loop.run_until_complete(get_req('https://lostarkapi.ga/sasa/'+str(닉네임)))
-            
+
             embedresult_sasalist = calmodule.embedresult_sasalist(response, 닉네임)
-            
+
             await ctx.respond("", embed=embedresult_sasalist, ephemeral=True)
         except Exception as error:
             embederr = discord.Embed(title="정보처리 과정 중 알 수 없는 오류가 발생했습니다.\n(없는 캐릭터,너무 많은 조회로 인한 서버이용 불가 등)", color=discord.Color.red())
@@ -167,7 +168,7 @@ async def 입찰(ctx: discord.ApplicationContext, 가격: Option(int, "아이템
     if ctx.guild is None:
         await ctx.respond("DM금지")
     else:
-        try:            
+        try:
             embedresult_auction = calmodule.embedresult_auction(가격)
 
             await ctx.respond("", embed=embedresult_auction)
@@ -181,12 +182,12 @@ async def 시세(ctx: discord.ApplicationContext):
     if ctx.guild is None:
         await ctx.respond("DM금지")
     else:
-        try:          
+        try:
             loop = asyncio.get_event_loop()
             response = loop.run_until_complete(get_req('https://lostarkapi.ga/crystal'))
 
             embedresult_crystal = calmodule.embedresult_crystal(response)
-            
+
             await ctx.respond("", embed=embedresult_crystal)
         except Exception as error:
             embederr = discord.Embed(title="알 수 없는 오류가 발생했습니다.", color=discord.Color.red())
@@ -241,7 +242,7 @@ async def 거래소(ctx: discord.ApplicationContext, 아이템: Option(str, "검
                         percount = str(response["FirstItem"][1]).replace("개 단위","")
 
                         if percount == "None":
-                            percount = "1"                        
+                            percount = "1"
 
                         url2 = "http://152.70.248.4:5000/trade/"+str(number)
                         response2 = loop.run_until_complete(get_req2(url2))
@@ -280,7 +281,7 @@ async def 거래소(ctx: discord.ApplicationContext, 아이템: Option(str, "검
                         itemgrade = response["FirstItem"][0][:response["FirstItem"][0].find(" ")]
 
                         if percount == "None":
-                            percount = "1"                        
+                            percount = "1"
 
                         url2 = "https://lostarkapi.ga/trade/"+str(number)
                         response2 = loop.run_until_complete(get_req2(url2))
@@ -325,7 +326,7 @@ async def 공략(ctx: discord.ApplicationContext):
     if ctx.guild is None:
         await ctx.respond("DM금지")
     else:
-        try:          
+        try:
             await ctx.defer(ephemeral=False)
             message = await ctx.interaction.original_message()
             await message.edit("https://media.discordapp.net/attachments/935529009251487810/946768903583973426/i13704437401.jpeg", view=HelpOption(ctx,message))
@@ -341,7 +342,7 @@ class InfoOptions(discord.ui.View):
         self.닉네임 = 닉네임
         self.msg = msg
         self.embedres = embedres
-        self.embedres2 = embedres2    
+        self.embedres2 = embedres2
         self.embedres3 = embedres3
         self.embedres4 = embedres4
         self.embedres5 = embedres5
@@ -367,17 +368,17 @@ class InfoOptions(discord.ui.View):
     @discord.ui.button(label="보석&카드", style=discord.ButtonStyle.gray, custom_id="ChaJewl")
     async def ChaJewl(self, button: discord.ui.Button, interaction: discord.Interaction):
         if not (str(interaction.message.embeds[0].title)) == "보석&카드":
-            await interaction.response.edit_message(embed=self.embedres4, view=self)    
+            await interaction.response.edit_message(embed=self.embedres4, view=self)
 
     @discord.ui.button(label="장비", style=discord.ButtonStyle.gray, custom_id="Chatnwlq")
     async def Chatnwlq(self, button: discord.ui.Button, interaction: discord.Interaction):
         if not (str(interaction.message.embeds[0].title)) == "장비":
-            await interaction.response.edit_message(embed=self.embedres7, view=self) 
+            await interaction.response.edit_message(embed=self.embedres7, view=self)
 
     @discord.ui.button(label="악세서리", style=discord.ButtonStyle.gray, custom_id="Dkrtptjfl")
     async def Dkrtptjfl(self, button: discord.ui.Button, interaction: discord.Interaction):
         if not (str(interaction.message.embeds[0].title)) == "악세서리":
-            await interaction.response.edit_message(embed=self.embedres8, view=self)    
+            await interaction.response.edit_message(embed=self.embedres8, view=self)
 
     @discord.ui.button(label="주급", style=discord.ButtonStyle.gray, custom_id="ChaGold")
     async def ChaGold(self, button: discord.ui.Button, interaction: discord.Interaction):
@@ -392,7 +393,7 @@ class InfoOptions(discord.ui.View):
     @discord.ui.button(label="캐릭터 목록", style=discord.ButtonStyle.gray, custom_id="ChaList")
     async def ChaList(self, button: discord.ui.Button, interaction: discord.Interaction):
         if not (str(interaction.message.embeds[0].title)) == "캐릭터 목록":
-            await interaction.response.edit_message(embed=self.embedres2, view=self)  
+            await interaction.response.edit_message(embed=self.embedres2, view=self)
 
 class TradeOption(discord.ui.View):
     def __init__(self, ctx: commands.Context, 아이템: str, msg: discord.Message, embedres: discord.Embed, embedres2: discord.Embed):
